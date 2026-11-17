@@ -1,7 +1,7 @@
 
 import express from 'express';
 import { rateLimit } from 'express-rate-limit';
-import { guardedFetch, readBodyAsText } from 'guarded-fetch';
+import { readBodyAsText } from 'guarded-fetch';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -81,14 +81,13 @@ app.all('/api/proxy', async (req, res) => {
       headers['content-type'] = 'application/json';
     }
 
-    const upstream = await guardedFetch(target.href, {
+    const upstream = await fetch(target.href, {
       method,
       headers,
       body: method === 'POST' ? req.body : undefined,
       timeoutMs: 15000,
       redirect: 'error',
       opaqueErrors: true,
-      skipSsrfCheckForAllowedHosts: true,
     });
 
     const responseBody = await readBodyAsText(upstream, {
