@@ -103,7 +103,7 @@ app.all('/api/proxy', async (req, res) => {
       })
       .send(responseBody);
   } catch (error) {
-    console.error('Proxy request failed:', error?.code || 'unknown');
+    console.error('Proxy request failed:', error);
 
     return res.status(502).json({
       error: 'External API request failed or was blocked',
