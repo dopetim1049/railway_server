@@ -88,6 +88,7 @@ app.all('/api/proxy', async (req, res) => {
       timeoutMs: 15000,
       redirect: 'error',
       opaqueErrors: true,
+      skipSsrfCheckForAllowedHosts: true,
     });
 
     const responseBody = await readBodyAsText(upstream, {
